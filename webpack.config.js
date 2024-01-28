@@ -1,7 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const StylexPlugin = require("@stylexjs/webpack-plugin");
 
-module.exports = {
+const config = (env, argv) => ({
   entry: "./src/index.tsx",
   mode: "development",
   output: {
@@ -11,6 +12,25 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+    }),
+    // Ensure that the stylex plugin is used before Babel
+    new StylexPlugin({
+      filename: "styles.[contenthash].css",
+      // get webpack mode and set value for dev
+      dev: argv.mode === "development",
+      // Use statically generated CSS files and not runtime injected CSS.
+      // Even in development.
+      runtimeInjection: false,
+      // optional. default: 'x'
+      classNamePrefix: "x",
+      // Required for CSS variable support
+      unstable_moduleResolution: {
+        // type: 'commonJS' | 'haste'
+        // default: 'commonJS'
+        type: "commonJS",
+        // The absolute path to the root directory of your project
+        rootDir: __dirname,
+      },
     }),
   ],
   resolve: {
@@ -36,4 +56,6 @@ module.exports = {
       },
     ],
   },
-};
+});
+
+module.exports = config;
