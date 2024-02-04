@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Card } from '#src/components/common';
+import { Button, Card, Container } from '#src/components/common';
 import * as stylex from '@stylexjs/stylex';
 import React from 'react';
 
@@ -31,19 +31,24 @@ const HomePage = () => {
 
   return (
     <>
-      <h1>Welcome to the Home Page!</h1>
-      <div {...stylex.props(styles.bar(height))}>
-        This is some content specific to the Home Page.
-      </div>
-      <Card size='large'>
-        <Button kind='primary' isActive={isActive} onClick={() => alert('clicked')}>
-          Submit
-        </Button>
-        <Button kind='inverted' style={buttonStyles.default}>
-          Submit
-        </Button>
-        <Button kind='disabled'>Submit</Button>
-      </Card>
+      <Container kind='block'>
+        <h1>Welcome to the Home Page!</h1>
+        <div {...stylex.props(styles.bar(height))}>
+          This is some content specific to the Home Page.
+        </div>
+        <Card size='large' title='Button Components'>
+          <Container kind='flex'>
+            <Button kind='primary' isActive={isActive} onClick={() => alert('clicked')}>
+              Primary
+            </Button>
+            <Button kind='inverted' style={buttonStyles.default}>
+              Primary Overide
+            </Button>
+            <Button kind='inverted'>Inverted</Button>
+            <Button kind='disabled'>Disabled</Button>
+          </Container>
+        </Card>
+      </Container>
     </>
   );
 };

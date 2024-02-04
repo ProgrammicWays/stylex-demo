@@ -1,6 +1,5 @@
 import * as stylex from '@stylexjs/stylex';
-
-export const colors = stylex.defineVars({
+export const themeTokens = stylex.defineVars({
   primary: '#8C54FB',
   primaryLight: '#BC9BFD',
   primaryLightest: '#EEE6FE',
@@ -11,16 +10,11 @@ export const colors = stylex.defineVars({
   accentLightest: '#F9EBEB',
   accentDark: '#8C2728',
   accentDarkest: '#501617',
-  gray: '#CE4F51',
+  gray: '#A6A6A6',
   grayLight: '#D9D9D9',
   grayLightest: '#EBEBEB',
   grayDark: '#808080',
   grayDarkest: '#404040',
-  black: '#333333',
-  white: '#FFFFFF'
-});
-
-export const spacing = stylex.defineVars({
   none: '0px',
   xsmall: '4px',
   small: '8px',

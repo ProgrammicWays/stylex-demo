@@ -3,6 +3,8 @@ import { forwardRef, Ref } from 'react';
 import * as stylex from '@stylexjs/stylex';
 import type { StyleXStyles } from '@stylexjs/stylex';
 import React from 'react';
+import { blueTheme, redTheme } from '#src/styles/themes';
+import { themeTokens } from '#root/src/styles/tokens.stylex';
 
 export interface ButtonProps {
   kind: 'primary' | 'inverted' | 'disabled';
@@ -17,53 +19,57 @@ export interface ButtonProps {
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ kind, isActive, style, onClick, ...props }, ref) => (
+  ({ kind, children, isActive, style, onClick, ...props }, ref) => (
     <button
       type='button'
       onClick={onClick}
       ref={ref}
       {...props}
       {...stylex.props(
+        redTheme,
         buttonStyles.default,
         buttonStyles[kind],
         // isActive ? buttonStyles.active : buttonStyles.disabled,
         style
       )}
-    />
+    >
+      {children}
+    </button>
   )
 );
 
 const buttonStyles = stylex.create({
   default: {
     borderRadius: '8px',
-    padding: '5px 10px',
+    padding: '10px 20px',
     margin: '10px',
-    fontSize: '1rem',
+    fontSize: '1.2rem',
     boxShadow: 'none',
-    border: 'none'
+    border: 'none',
+    cursor: 'pointer'
   },
   active: {
-    background: 'green',
-    color: 'white'
+    background: themeTokens.accent,
+    color: themeTokens.accentLightest
   },
   primary: {
     background: {
-      default: 'orange',
-      ':hover': 'black'
+      default: themeTokens.primary,
+      ':hover': themeTokens.primaryDark
     },
     color: {
-      default: 'white',
-      ':hover': 'orange'
+      default: themeTokens.primaryLightest,
+      ':hover': themeTokens.primaryLightest
     }
   },
   inverted: {
-    background: 'white',
-    color: 'orange',
-    border: '1px solid orange'
+    background: themeTokens.primaryLightest,
+    color: themeTokens.primary,
+    border: `1px solid ${themeTokens.primary}`
   },
   disabled: {
-    background: 'gray',
+    background: themeTokens.grayLight,
     pointerEvents: 'none',
-    color: '#aaaaaa'
+    color: themeTokens.grayDark
   }
 });
